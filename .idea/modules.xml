@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Virtual-Pet.iml" filepath="$PROJECT_DIR$/Virtual-Pet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Virtual-Pet_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Virtual-Pet_main.iml" group="Virtual-Pet" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Virtual-Pet_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Virtual-Pet_test.iml" group="Virtual-Pet" />
     </modules>
   </component>
 </project>

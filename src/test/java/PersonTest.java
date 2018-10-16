@@ -1,7 +1,7 @@
 import org.junit.*;
 import static org.junit.Assert.*;
 
-public class PersonTesst {
+public class PersonTest {
 
 
     @Test
@@ -12,7 +12,7 @@ public class PersonTesst {
 
     @Test
     public void getName_personInstantiatesWithName_Henry(){
-        Person testPerson = new Person("Henry","henry@vitualpets.com")
+        Person testPerson = new Person("Henry","henry@vitualpets.com");
         assertEquals("Henry", testPerson.getName());
     }
 
@@ -20,6 +20,13 @@ public class PersonTesst {
     public void getName_personInstantiatesWithEmail_String() {
         Person testPerson = new Person("Henry", "henry@vitualpets.com");
         assertEquals("henry@vitualpets.com", testPerson.getEmail());
+    }
+
+    @Test
+    public void equals_returnsTrueIfNameAndEmailAreSame_true() {
+        Person firstPerson = new Person("Henry", "henry@vitualpets.com");
+        Person anotherPerson = new Person("Henry", "henry@vitualpets.com");
+        assertTrue(firstPerson.equals(anotherPerson));
     }
 
 }
