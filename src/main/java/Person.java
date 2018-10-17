@@ -15,4 +15,15 @@ public class Person {
         return email;
     }
 
+    @Override
+    public boolean equals(Object otherPerson){
+        if (!(otherPerson instanceof Person)){
+            return false;
+        }else{
+            Person newPerson = (Person) otherPerson;
+            return this.getName().equals(newPerson.getName()) &&
+                    this.getEmail().equals(newPerson.getEmail());
+        }
+    }
+
 }
