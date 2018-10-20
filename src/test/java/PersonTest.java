@@ -13,17 +13,19 @@ public class PersonTest {
         assertEquals(true, testPerson instanceof Person);
     }
 
-//    @Test
-//    public void getName_personInstantiatesWithName_Henry() {
-//        Person testPerson = new Person("Henry","henry@vitualpets.com");
-//        assertEquals("Henry", testPerson.getName());
-//    }
-//
-//    @Test
-//    public void getName_personInstantiatesWithEmail_String() {
-//        Person testPerson = new Person("Henry", "henry@vitualpets.com");
-//        assertEquals("henry@vitualpets.com", testPerson.getEmail());
-//    }
+//  TEST IF PERSON INITIALIZES WITH NAME IN PERSON CLASS
+    @Test
+    public void getName_personInstantiatesWithName_Henry() {
+        Person testPerson = new Person("Henry","henry@vitualpets.com");
+        assertEquals("Henry", testPerson.getName());
+    }
+
+//    TEST IF PERSON INITIALIZES WITH EMAIL IN PERSON CLASS
+    @Test
+    public void getName_personInstantiatesWithEmail_String() {
+        Person testPerson = new Person("Henry", "henry@vitualpets.com");
+        assertEquals("henry@vitualpets.com", testPerson.getEmail());
+    }
 //
 //    @Test
 //    public void equals_returnsTrueIfNameAndEmailAreSame_true() {

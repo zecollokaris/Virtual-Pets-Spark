@@ -1,5 +1,7 @@
-// Main Class (Person)
+// MAIN CLASS (PERSON)!
 public class Person {
+
+//   INITIALIZING CLASS NAME & EMAIL WITH PERSON!
     private String name;
     private String email;
 
@@ -16,15 +18,16 @@ public class Person {
         return email;
     }
 
-    @Override
-    public boolean equals(Object otherPerson){
-        if (!(otherPerson instanceof Person)){
-            return false;
-        }else{
-            Person newPerson = (Person) otherPerson;
-            return this.getName().equals(newPerson.getName()) &&
-                    this.getEmail().equals(newPerson.getEmail());
-        }
-    }
+//    OVERRIDING equals()!
+//    @Override
+//    public boolean equals(Object otherPerson){
+//        if (!(otherPerson instanceof Person)){
+//            return false;
+//        }else{
+//            Person newPerson = (Person) otherPerson;
+//            return this.getName().equals(newPerson.getName()) &&
+//                    this.getEmail().equals(newPerson.getEmail());
+//        }
+//    }
 
 }
