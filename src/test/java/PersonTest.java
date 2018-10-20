@@ -6,6 +6,9 @@ import org.sql2o.*;
 
 public class PersonTest {
 
+//  DATABASERULE
+    @Rule
+    Public DatabaseRule database = new DatabaseRule();
 
     @Test
 //  TEST INITIALIZATION OF PERSON CLASS
