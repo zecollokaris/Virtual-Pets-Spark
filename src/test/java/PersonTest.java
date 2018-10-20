@@ -46,9 +46,10 @@ public class PersonTest {
         assertTrue(Person.all().get(0).equals(testPerson));
     }
 
+//  TEST TO CHECK ALL PERSONS ARE BEING RETURNED
     @Test
     public void all_returnsAllInstancesOfPerson_true() {
-        Person firstPerson = new Person("Henry", "henry@henry.com");
+        Person firstPerson = new Person("Henry", "henry@vitualpets.com");
         firstPerson.save();
         Person secondPerson = new Person("Harriet", "harriet@harriet.com");
         secondPerson.save();

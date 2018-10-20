@@ -2,7 +2,8 @@ import java.security.PublicKey;
 import java.sql.Connection;
 import org.sql2o.*;
 import java.util.ArrayList;
-import java.util.List
+import java.util.List;
+import  static spark.Spark.*;
 
 
 
@@ -12,6 +13,7 @@ public class Person {
 //   INITIALIZING CLASS NAME & EMAIL WITH PERSON!
     private String name;
     private String email;
+    private int id;
 
     public Person(String name, String email) {
         this.name = name;
@@ -38,7 +40,7 @@ public class Person {
         }
     }
 
-//  DEFINING SAVE METHOD
+//  DEFINING SAVE METHOD!
     public void save() {
         try(Connection con = DB.sql2o.open()) {
             String sql = "INSERT INTO persons (name, email) VALUES (:name, :email)";
@@ -49,6 +51,12 @@ public class Person {
         }
     }
 
-    public static List<>
+//  GETING PERSON`S SAVED IN DATABASE!
+    public static List<Person> all() {
+        String sql = "SELECT * FROM persons";
+        try(Connection con = DB.sql2o.open()) {
+            return con.createQuery(sql).executeAndFetch(Person.class);
+        }
+    }
 
 }
