@@ -1,59 +1,115 @@
-//Class PersonTest Imports!
 import org.junit.*;
 import static org.junit.Assert.*;
-//IMPORT DB!
 import org.sql2o.*;
+import java.util.Arrays;
+import java.util.List;
 
 public class PersonTest {
 
-//  DATABASERULE
-    @Rule
-    Public DatabaseRule database = new DatabaseRule();
+  @Rule
+  public DatabaseRule database = new DatabaseRule();
 
-    @Test
-//  TEST INITIALIZATION OF PERSON CLASS
-    public void person_instantiatesCorretly_true() {
-        Person testPerson = new Person("Henry","henry@vitualpets.com");
-        assertEquals(true, testPerson instanceof Person);
-    }
+  @Test
+  public void person_instantiatesCorrectly_true() {
+    Person testPerson = new Person("Henry", "henry@henry.com");
+    assertEquals(true, testPerson instanceof Person);
+  }
 
-//  TEST IF PERSON INITIALIZES WITH NAME IN PERSON CLASS
-    @Test
-    public void getName_personInstantiatesWithName_Henry() {
-        Person testPerson = new Person("Henry","henry@vitualpets.com");
-        assertEquals("Henry", testPerson.getName());
-    }
+  @Test
+  public void getName_personInstantiatesWithName_Henry() {
+    Person testPerson = new Person("Henry", "henry@henry.com");
+    assertEquals("Henry", testPerson.getName());
+  }
 
-//    TEST IF PERSON INITIALIZES WITH EMAIL IN PERSON CLASS
-    @Test
-    public void getName_personInstantiatesWithEmail_String() {
-        Person testPerson = new Person("Henry", "henry@vitualpets.com");
-        assertEquals("henry@vitualpets.com", testPerson.getEmail());
-    }
+  @Test
+  public void getName_personInstantiatesWithEmail_String() {
+    Person testPerson = new Person("Henry", "henry@henry.com");
+    assertEquals("henry@henry.com", testPerson.getEmail());
+  }
 
-    @Test
-    public void equals_returnsTrueIfNameAndEmailAreSame_true() {
-        Person firstPerson = new Person("Henry", "henry@vitualpets.com");
-        Person anotherPerson = new Person("Henry", "henry@vitualpets.com");
-        assertTrue(firstPerson.equals(anotherPerson));
-    }
+  @Test
+  public void equals_returnsTrueIfNameAndEmailAreSame_true() {
+    Person testPerson = new Person("Henry", "henry@henry.com");
+    Person anotherPerson = new Person("Henry", "henry@henry.com");
+    assertTrue(testPerson.equals(anotherPerson));
+  }
 
-//  TEST IF OBJECTS INSERT INTO DATABASE!
-    @Test
-    public void save_insertObjectIntoDatabase_Person(){
-        Person testPerson = new Person("Henry", "henry@vitualpets.com");
-        testPerson.save();
-        assertTrue(Person.all().get(0).equals(testPerson));
-    }
+  @Test
+  public void save_insertsObjectIntoDatabase_Person() {
+    Person testPerson = new Person("Henry", "henry@henry.com");
+    testPerson.save();
+    assertEquals(true, Person.all().get(0).equals(testPerson));
+  }
 
-//  TEST TO CHECK ALL PERSONS ARE BEING RETURNED
-    @Test
-    public void all_returnsAllInstancesOfPerson_true() {
-        Person firstPerson = new Person("Henry", "henry@vitualpets.com");
-        firstPerson.save();
-        Person secondPerson = new Person("Harriet", "harriet@harriet.com");
-        secondPerson.save();
-        assertEquals(true, Person.all().get(0).equals(firstPerson));
-        assertEquals(true, Person.all().get(1).equals(secondPerson));
-    }
+  @Test
+  public void all_returnsAllInstancesOfPerson_true() {
+    Person firstPerson = new Person("Henry", "henry@henry.com");
+    firstPerson.save();
+    Person secondPerson = new Person("Harriet", "harriet@harriet.com");
+    secondPerson.save();
+    assertEquals(true, Person.all().get(0).equals(firstPerson));
+    assertEquals(true, Person.all().get(1).equals(secondPerson));
+  }
+
+  @Test
+  public void save_assignsIdToObject() {
+    Person testPerson = new Person("Henry", "henry@henry.com");
+    testPerson.save();
+    Person savedPerson = Person.all().get(0);
+    assertEquals(testPerson.getId(), savedPerson.getId());
+  }
+
+  @Test
+  public void getMonsters_retrievesAllMonstersFromDatabase_monstersList() {
+    Person testPerson = new Person("Henry", "henry@henry.com");
+    testPerson.save();
+    FireMonster firstMonster = new FireMonster("Smokey", testPerson.getId());
+    firstMonster.save();
+    WaterMonster secondMonster = new WaterMonster("Drippy", testPerson.getId());
+    secondMonster.save();
+    Object[] monsters = new Object[] { firstMonster, secondMonster };
+    assertTrue(testPerson.getMonsters().containsAll(Arrays.asList(monsters)));
+  }
+
+  @Test
+  public void getCommunities_returnsAllCommunities_List() {
+    Community testCommunity = new Community("Fire Enthusiasts", "Flame on!");
+    testCommunity.save();
+    Person testPerson = new Person("Henry", "henry@henry.com");
+    testPerson.save();
+    testCommunity.addPerson(testPerson);
+    List savedCommunities = testPerson.getCommunities();
+    assertEquals(1, savedCommunities.size());
+  }
+
+  @Test
+  public void leaveCommunity_removesAssociationWithSpecifiedCommunity() {
+    Community testCommunity = new Community("Fire Enthusiasts", "Flame on!");
+    testCommunity.save();
+    Person testPerson = new Person("Henry", "henry@henry.com");
+    testPerson.save();
+    testPerson.leaveCommunity(testCommunity);
+    List savedCommunities = testPerson.getCommunities();
+    assertEquals(0, savedCommunities.size());
+  }
+
+  @Test
+  public void delete_deletesPerson_true() {
+    Person testPerson = new Person("Henry", "henry@henry.com");
+    testPerson.save();
+    testPerson.delete();
+    assertEquals(0, Person.all().size());
+  }
+
+  @Test
+  public void delete_deletesAllPersonsAndCommunitiesAssociations() {
+    Community testCommunity = new Community("Fire Enthusiasts", "Flame on!");
+    testCommunity.save();
+    Person testPerson = new Person("Henry", "henry@henry.com");
+    testPerson.save();
+    testCommunity.addPerson(testPerson);
+    testPerson.delete();
+    assertEquals(0, testCommunity.getPersons().size());
+  }
+
 }
